@@ -12,6 +12,9 @@
     <Style Selector="TextBlock.label">
       <Setter Property="VerticalAlignment" Value="Center" />
       <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+      <!-- Long names (an award bonus is labelled with the award's name) use a second line. -->
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="MaxLines" Value="2" />
     </Style>
     <Style Selector="TextBlock.label.pending">
       <Setter Property="Foreground" Value="{DynamicResource PendingBrush}" />

@@ -75,6 +75,12 @@ public class LiveDatabaseTests
         m.I32(Heap + 0x6000, 84); m.I16(Heap + 0x6004, -1); m.Bytes(Heap + 0x6006, 0x20);
         m.I32(Heap + 0x6008, -1); m.I16(Heap + 0x600C, 25); m.Bytes(Heap + 0x600E, 0x0E);
 
+        // Ana's award bonuses: contract+0x40 -> holder of a list of 16-byte { award*, i32 amount } entries.
+        m.I64(Heap + 0x4040, Heap + 0x6100);
+        m.I64(Heap + 0x6100, Heap + 0x6200);
+        m.I64(Heap + 0x6108, Heap + 0x6210);
+        m.I64(Heap + 0x6200, club); m.I32(Heap + 0x6208, 1967);
+
         FieldDef F(string offset, FieldType type, double scale = 1, params string[] path) =>
             new() { Offset = offset, Type = type, Scale = scale, Path = path.Length > 0 ? [.. path] : null };
 
@@ -91,6 +97,9 @@ public class LiveDatabaseTests
             ["Contract.AppearanceFee"] = new FieldDef { Offset = "0x20", Type = FieldType.I32, Path = ["0x50"], Clause = "0x20" },
             ["Contract.TopDivisionPromotionWageRise"] = new FieldDef { Offset = "0x20", Type = FieldType.I16, Path = ["0x50"], Clause = "0x0E", ElementOffset = "0x4" },
             ["Contract.GoalBonus"] = new FieldDef { Offset = "0x20", Type = FieldType.I32, Path = ["0x50"], Clause = "0x21" },
+            ["Contract.AwardBonus1Award"] = new FieldDef { Offset = "0x0", Type = FieldType.EntityPtr, Path = ["0x50", "0x40"], Entry = new() { Stride = 16, Index = 0 } },
+            ["Contract.AwardBonus1"] = new FieldDef { Offset = "0x0", Type = FieldType.I32, Path = ["0x50", "0x40"], Entry = new() { Stride = 16, Index = 0, ValueOffset = "0x8" } },
+            ["Contract.AwardBonus2"] = new FieldDef { Offset = "0x0", Type = FieldType.I32, Path = ["0x50", "0x40"], Entry = new() { Stride = 16, Index = 1, ValueOffset = "0x8" } },
         };
 
         var def = new GameDefinition
@@ -194,6 +203,21 @@ public class LiveDatabaseTests
         Assert.Equal(25, db.Read(ana, "Contract.TopDivisionPromotionWageRise"));   // moved up into the first slot
         Assert.Equal(Heap + 0x6008, m.ReadPointer(Heap + 0x4028));                 // the list is one entry shorter
         db.Write(ana, "Contract.GoalBonus", 0L);                                   // nothing to take out is fine
+    }
+
+    [Fact]
+    public void Award_bonuses_are_read_by_position_in_their_list()
+    {
+        var (m, db) = Build();
+        var ana = db.Find(EntityKind.Player, 1)!;
+        Assert.Equal(500, db.Read(ana, "Contract.AwardBonus1Award"));   // the award record's id
+        Assert.Equal(1967L, db.Read(ana, "Contract.AwardBonus1"));
+        Assert.Null(db.Read(ana, "Contract.AwardBonus2"));              // only one entry
+        Assert.Null(db.Read(db.Find(EntityKind.Player, 3)!, "Contract.AwardBonus1"));   // no list at all
+
+        db.Write(ana, "Contract.AwardBonus1", 2500L);
+        Assert.Equal(2500, m.ReadInt32(Heap + 0x6208));
+        Assert.Equal(Heap + 0x2300, m.ReadPointer(Heap + 0x6200));   // the award is untouched
     }
 
     [Fact]

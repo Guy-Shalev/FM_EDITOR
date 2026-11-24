@@ -1381,6 +1381,261 @@
         "clause": "0x0B",
         "elementOffset": "0x4"
       },
+      "Contract.ReleaseClauseHigherDivision": {
+        "offset": "0x68",
+        "type": "i32",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x11",
+        "elementOffset": "0x0"
+      },
+      "Contract.ReleaseClauseContinental": {
+        "offset": "0x68",
+        "type": "i32",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x1F",
+        "elementOffset": "0x0"
+      },
+      "Contract.NonPromotionReleaseClause": {
+        "offset": "0x68",
+        "type": "i32",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x02",
+        "elementOffset": "0x0"
+      },
+      "Contract.LandmarkGoalBonus": {
+        "offset": "0x68",
+        "type": "i32",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x0A",
+        "elementOffset": "0x0"
+      },
+      "Contract.LandmarkGoalBonusGoals": {
+        "offset": "0x68",
+        "type": "i16",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x0A",
+        "elementOffset": "0x4"
+      },
+      "Contract.LandmarkAssistBonus": {
+        "offset": "0x68",
+        "type": "i32",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x28",
+        "elementOffset": "0x0"
+      },
+      "Contract.LandmarkAssistBonusAssists": {
+        "offset": "0x68",
+        "type": "i16",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x28",
+        "elementOffset": "0x4"
+      },
+      "Contract.LandmarkGoalAssistBonus": {
+        "offset": "0x68",
+        "type": "i32",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x29",
+        "elementOffset": "0x0"
+      },
+      "Contract.LandmarkGoalAssistBonusCount": {
+        "offset": "0x68",
+        "type": "i16",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x29",
+        "elementOffset": "0x4"
+      },
+      "Contract.WageAfterLeagueGames": {
+        "offset": "0x68",
+        "type": "i32",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x0D",
+        "elementOffset": "0x0"
+      },
+      "Contract.WageAfterLeagueGamesCount": {
+        "offset": "0x68",
+        "type": "i16",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x0D",
+        "elementOffset": "0x4"
+      },
+      "Contract.WageAfterCaps": {
+        "offset": "0x68",
+        "type": "i32",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x13",
+        "elementOffset": "0x0"
+      },
+      "Contract.WageAfterCapsCount": {
+        "offset": "0x68",
+        "type": "i16",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8"
+        ],
+        "clause": "0x13",
+        "elementOffset": "0x4"
+      },
+      "Contract.AwardBonus1Award": {
+        "offset": "0x0",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8",
+          "0x98"
+        ],
+        "type": "entityPtr",
+        "readOnly": true,
+        "entry": {
+          "stride": 16,
+          "index": 0,
+          "valueOffset": "0x0"
+        }
+      },
+      "Contract.AwardBonus1": {
+        "offset": "0x0",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8",
+          "0x98"
+        ],
+        "type": "i32",
+        "entry": {
+          "stride": 16,
+          "index": 0,
+          "valueOffset": "0x8"
+        }
+      },
+      "Contract.AwardBonus2Award": {
+        "offset": "0x0",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8",
+          "0x98"
+        ],
+        "type": "entityPtr",
+        "readOnly": true,
+        "entry": {
+          "stride": 16,
+          "index": 1,
+          "valueOffset": "0x0"
+        }
+      },
+      "Contract.AwardBonus2": {
+        "offset": "0x0",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8",
+          "0x98"
+        ],
+        "type": "i32",
+        "entry": {
+          "stride": 16,
+          "index": 1,
+          "valueOffset": "0x8"
+        }
+      },
+      "Contract.AwardBonus3Award": {
+        "offset": "0x0",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8",
+          "0x98"
+        ],
+        "type": "entityPtr",
+        "readOnly": true,
+        "entry": {
+          "stride": 16,
+          "index": 2,
+          "valueOffset": "0x0"
+        }
+      },
+      "Contract.AwardBonus3": {
+        "offset": "0x0",
+        "scale": 1,
+        "maxLength": 64,
+        "verified": false,
+        "path": [
+          "0xA8",
+          "0x98"
+        ],
+        "type": "i32",
+        "entry": {
+          "stride": 16,
+          "index": 2,
+          "valueOffset": "0x8"
+        }
+      },
       "Contract.Happiness": {
         "offset": "0x5A",
         "type": "i8",

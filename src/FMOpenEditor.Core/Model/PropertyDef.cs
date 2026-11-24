@@ -39,6 +39,9 @@ public sealed record PropertyDef(string Key, string Label, string Category, Valu
     /// <summary>Part of the attribute set that Freeze / Only-up and Compare work on.</summary>
     public bool IsAttribute { get; init; }
 
+    /// <summary>A reference property whose target's name becomes this row's label; that property gets no row of its own.</summary>
+    public string? LabelFrom { get; init; }
+
     public string? Description { get; init; }
 
     public bool IsNumeric => Kind is ValueKind.Integer or ValueKind.Money or ValueKind.Decimal;

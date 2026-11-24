@@ -16,6 +16,8 @@ public sealed partial class LiveDatabase
         var end = _memory.ReadPointer(list + 8);
         if (begin == 0 || end <= begin || (end - begin) % entry.Stride != 0 || (end - begin) / entry.Stride > MaxEntries)
             return null;
+        if (entry.Index is { } index)
+            return index >= 0 && index < (end - begin) / entry.Stride ? (begin, end, begin + index * entry.Stride) : null;
         var keyAt = (nint)GameDefinition.ParseOffset(entry.KeyOffset);
         for (var e = begin; e < end; e += entry.Stride)
             if ((long)ReadNumber(e + keyAt, entry.KeyType) == entry.Key) return (begin, end, e);
@@ -25,6 +27,8 @@ public sealed partial class LiveDatabase
     private object? ReadEntry(nint list, FieldDef field, ListEntryDef entry, ValueKind kind)
     {
         if (FindEntry(list, entry) is not { } found) return null;
+        if (field.Type == FieldType.EntityPtr)
+            return _byAddress.TryGetValue(_memory.ReadPointer(found.Entry + (nint)GameDefinition.ParseOffset(entry.ValueOffset)), out var e) ? e.Id : null;
         var raw = (long)ReadNumber(found.Entry + (nint)GameDefinition.ParseOffset(entry.ValueOffset), field.Type);
         if (entry.NoValue is { } none && raw == none) return null;
         var shown = Math.Round(raw / field.Scale);

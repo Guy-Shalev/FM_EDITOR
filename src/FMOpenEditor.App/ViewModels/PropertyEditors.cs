@@ -11,8 +11,21 @@ public abstract partial class PropertyEditorViewModel(EditorSession session, Ent
     public Entity Entity { get; } = entity;
     public PropertyDef Def { get; } = def;
 
-    public string Label => Def.Label;
-    public string? Tooltip => Def.Description ?? Def.Key;
+    // An award bonus is labelled with its award's name, read from the record it points at.
+    public string Label => Def.LabelFrom is { } from && Session.TryRead(Entity, from) is int id
+        && PropertyCatalog.Find(Entity.Kind, from)?.RefKind is { } kind ? WithoutCompetition(kind, id) : Def.Label;
+
+    // "Hana Bank K League 1 Player of the Year" → "Player of the Year": the competition is the player's own league.
+    private string WithoutCompetition(EntityKind kind, int id)
+    {
+        var name = Session.NameOf(kind, id);
+        if (Session.Database.Find(kind, id) is not { } record
+            || !Session.IsSupported(kind, "Competition") || Session.TryRead(record, "Competition") is not int comp) return name;
+        var prefix = Session.NameOf(EntityKind.Competition, comp);
+        return prefix.Length > 0 && name.Length > prefix.Length && name.StartsWith(prefix + " ", StringComparison.Ordinal)
+            ? name[(prefix.Length + 1)..] : name;
+    }
+    public string? Tooltip => Def.LabelFrom is null ? Def.Description ?? Def.Key : Label;
     public bool IsEditable => Session.CanEdit(Entity.Kind, Def.Key);
 
     // Attributes sit two to a row, so they get a narrower label and spinner.

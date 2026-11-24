@@ -814,6 +814,10 @@ Other types seen: 0x02 non-promotion release, 0x06 non-playing job release, 0x0A
 
 The editor changes an entry the contract has. It can't add one: that needs memory in the game.
 
+Also shown: 0x0A / 0x28 / 0x29 seasonal landmark goal / assist / goal+assist bonus and 0x0D / 0x13 wage after N club league games / international caps (amount at +0, count at +4); 0x02, 0x11, 0x1F release clauses (+0).
+
+Award bonuses (Player of the Year, Top Goalscorer…) are a second list: contract+0x98 points at a holder whose first 16 bytes are the vector begin/end; entries are 16 bytes { award*, i32 amount in pounds, pad }. 125,454 of 126,079 contracts have none; the most is 3. The editor shows each as one row named after the award, without its competition's name.
+
 ---
 
 ## Missing

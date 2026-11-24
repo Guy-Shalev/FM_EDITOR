@@ -366,6 +366,10 @@ public sealed class ListEntryDef
 
     /// <summary>The stored value meaning "none" (FM: 0xFFFFFFFF), read as null.</summary>
     public long? NoValue { get; set; }
+
+    /// <summary>When set, the entry at this position (0 = first) whatever its key: for lists with no key, such as award bonuses.</summary>
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public int? Index { get; set; }
 }
 
 /// <summary>How the game prices current ability at one position (see <see cref="GameDefinition.AbilityWeights"/>).</summary>
